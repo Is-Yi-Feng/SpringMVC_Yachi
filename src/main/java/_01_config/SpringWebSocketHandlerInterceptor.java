@@ -11,8 +11,8 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
-	   @Override
-
+	   
+		@Override
 	    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
 
 	                                   WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception{ 
@@ -28,31 +28,23 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
 	            if (session != null) {
 
 	                //使用userName区分WebSocketHandler，以便定向发送消息
-
 	                String userName = (String) session.getAttribute("userName");
 
 	                if (userName==null) {
 
 	                    userName="default-system";
-
 	                }
-
 	                attributes.put("userName",userName);
 
 	            }else{
-
 	                System.out.println("beforeHandshake 沒有取得 session");
-
 	            }
-
 	        }
-
 	        return super.beforeHandshake(request, response, wsHandler, attributes);
-
 	    }
 
+		
 	    @Override
-
 	    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
 
 	                               WebSocketHandler wsHandler, Exception ex) {
